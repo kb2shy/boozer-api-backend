@@ -28,7 +28,8 @@ module Api
 
       def create
         cocktail = Cocktail.new(cocktail_params)
-        if cocktail.save
+        if cocktail.valid?
+          cocktail.save
           render json: cocktail, status: :accepted
         else
           render json: {errors: cocktail.errors.full_messages}, status: :unprocessible_entity

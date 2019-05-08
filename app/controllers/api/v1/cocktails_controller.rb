@@ -26,9 +26,14 @@ module Api
         render json: cocktail_json
       end
 
-      # def create
-      #   byebug
-      # end
+      def create
+        cocktail = Cocktail.new(cocktail_params)
+        if cocktail.save
+          render json: cocktail, status: :accepted
+        else
+          render json: {errors: cocktail.errors.full_messages}, status: :unprocessible_entity
+        end
+      end
 
       def edit
 
@@ -40,6 +45,12 @@ module Api
 
       def destroy
 
+      end
+
+      private
+
+      def cocktail_params
+        params.permit(:name, :description, :instructions, :source)
       end
     end
   end

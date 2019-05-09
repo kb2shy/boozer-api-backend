@@ -46,7 +46,8 @@ module Api
       end
 
       def destroy
-
+        cocktail = Cocktail.find(params[:id]).destroy
+        render json: cocktail, status: :accepted
       end
 
       private
